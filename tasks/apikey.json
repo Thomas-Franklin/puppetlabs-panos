@@ -1,11 +1,9 @@
 {
   "puppet_task_version": 1,
   "supports_noop": false,
+  "input_method": "stdin",
   "description": "Retrieve a PAN-OS apikey using PAN-OS host, username and password.",
   "parameters": {
-    "credentials_file": {
-      "description": "The filename of the credentials file (as referenced in device.conf)",
-      "type": "String"
-    }
-  }
+  },
+  "files": [ "panos/lib/puppet/transport/panos.rb" ]
 }

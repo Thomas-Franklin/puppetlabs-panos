@@ -17,9 +17,20 @@ Puppet[:log_level] = 'debug'
 #### the real task ###
 
 require 'json'
+
+def add_plugin_paths(install_dir)
+  Dir.glob(File.join([install_dir, '*'])).each do |mod|
+    $LOAD_PATH << File.join([mod, "lib"])
+  end
+end
+
 require 'puppet/resource_api/transport/wrapper'
 
 params = JSON.parse(ENV['PARAMS'] || STDIN.read)
+
+add_plugin_paths(params['_installdir'])
+
+credentials = params['_target'].each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
 wrapper = Puppet::ResourceApi::Transport::Wrapper.new('panos', params['credentials_file'])
 api = Puppet::Transport::Panos::API.new(wrapper.transport.instance_variable_get(:@connection_info))
