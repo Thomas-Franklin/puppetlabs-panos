@@ -50,6 +50,7 @@ RSpec.configure do |c|
 address: #{@hostname}
 username: #{ENV['PANOS_TEST_USER'] || 'admin'}
 password: #{ENV['PANOS_TEST_PASSWORD'] || 'admin'}
+ssl: false
 CREDENTIALS
     end
 
